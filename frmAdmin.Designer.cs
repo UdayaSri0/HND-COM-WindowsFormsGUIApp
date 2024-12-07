@@ -26,13 +26,6 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        /// 
-        private System.Windows.Forms.Label lblWelcomeMessage;
-        private System.Windows.Forms.Label lblLoggedUserName;
-        private System.Windows.Forms.Label lblEMPMessage;
-        private System.Windows.Forms.Label lblLoggedUserEMPNumber;
-
-
         private void InitializeComponent()
         {
             this.btnExit = new System.Windows.Forms.Button();
@@ -58,13 +51,13 @@
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
+            this.lblLoggedUserName = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lblLoggedUserEMPNumber = new System.Windows.Forms.Label();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.txtUserID = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.lblWelcomeMessage = new System.Windows.Forms.Label();
-            this.lblLoggedUserName = new System.Windows.Forms.Label();
-            this.lblEMPMessage = new System.Windows.Forms.Label();
-            this.lblLoggedUserEMPNumber = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -87,7 +80,7 @@
             this.btnClear.TabIndex = 14;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = true;
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click_1);
             // 
             // checkBox1
             // 
@@ -292,6 +285,44 @@
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
+            // lblLoggedUserName
+            // 
+            this.lblLoggedUserName.AutoSize = true;
+            this.lblLoggedUserName.Font = new System.Drawing.Font("Microsoft Tai Le", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLoggedUserName.Location = new System.Drawing.Point(164, 19);
+            this.lblLoggedUserName.Name = "lblLoggedUserName";
+            this.lblLoggedUserName.Size = new System.Drawing.Size(0, 27);
+            this.lblLoggedUserName.TabIndex = 31;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Tai Le", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(12, 19);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(103, 27);
+            this.label4.TabIndex = 32;
+            this.label4.Text = "Welcome";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Tai Le", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(12, 78);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(143, 27);
+            this.label5.TabIndex = 34;
+            this.label5.Text = "EMP Number";
+            // 
+            // lblLoggedUserEMPNumber
+            // 
+            this.lblLoggedUserEMPNumber.AutoSize = true;
+            this.lblLoggedUserEMPNumber.Font = new System.Drawing.Font("Microsoft Tai Le", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLoggedUserEMPNumber.Location = new System.Drawing.Point(164, 78);
+            this.lblLoggedUserEMPNumber.Name = "lblLoggedUserEMPNumber";
+            this.lblLoggedUserEMPNumber.Size = new System.Drawing.Size(0, 27);
+            this.lblLoggedUserEMPNumber.TabIndex = 33;
+            // 
             // dataGridView
             // 
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -299,64 +330,25 @@
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.Size = new System.Drawing.Size(1365, 252);
             this.dataGridView.TabIndex = 35;
+            this.dataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellContentClick);
             // 
             // txtUserID
             // 
-            this.txtUserID.Font = new System.Drawing.Font("Microsoft Tai Le", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUserID.Location = new System.Drawing.Point(733, 42);
+            this.txtUserID.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUserID.Location = new System.Drawing.Point(789, 41);
             this.txtUserID.Name = "txtUserID";
-            this.txtUserID.Size = new System.Drawing.Size(161, 27);
+            this.txtUserID.Size = new System.Drawing.Size(105, 24);
             this.txtUserID.TabIndex = 37;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Tai Le", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(729, 19);
+            this.label7.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(806, 16);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(60, 19);
+            this.label7.Size = new System.Drawing.Size(88, 16);
             this.label7.TabIndex = 36;
-            this.label7.Text = "EMP ID";
-            // 
-            // lblWelcomeMessage
-            // 
-            this.lblWelcomeMessage.AutoSize = true;
-            this.lblWelcomeMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.lblWelcomeMessage.Location = new System.Drawing.Point(23, 17);
-            this.lblWelcomeMessage.Name = "lblWelcomeMessage";
-            this.lblWelcomeMessage.Size = new System.Drawing.Size(82, 20);
-            this.lblWelcomeMessage.TabIndex = 38;
-            this.lblWelcomeMessage.Text = "Welcome";
-            // 
-            // lblLoggedUserName
-            // 
-            this.lblLoggedUserName.AutoSize = true;
-            this.lblLoggedUserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.lblLoggedUserName.Location = new System.Drawing.Point(123, 17);
-            this.lblLoggedUserName.Name = "lblLoggedUserName";
-            this.lblLoggedUserName.Size = new System.Drawing.Size(112, 20);
-            this.lblLoggedUserName.TabIndex = 39;
-            this.lblLoggedUserName.Text = "Logged User";
-            // 
-            // lblEMPMessage
-            // 
-            this.lblEMPMessage.AutoSize = true;
-            this.lblEMPMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.lblEMPMessage.Location = new System.Drawing.Point(23, 57);
-            this.lblEMPMessage.Name = "lblEMPMessage";
-            this.lblEMPMessage.Size = new System.Drawing.Size(113, 20);
-            this.lblEMPMessage.TabIndex = 40;
-            this.lblEMPMessage.Text = "EMP Number";
-            // 
-            // lblLoggedUserEMPNumber
-            // 
-            this.lblLoggedUserEMPNumber.AutoSize = true;
-            this.lblLoggedUserEMPNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.lblLoggedUserEMPNumber.Location = new System.Drawing.Point(159, 57);
-            this.lblLoggedUserEMPNumber.Name = "lblLoggedUserEMPNumber";
-            this.lblLoggedUserEMPNumber.Size = new System.Drawing.Size(76, 20);
-            this.lblLoggedUserEMPNumber.TabIndex = 41;
-            this.lblLoggedUserEMPNumber.Text = "EMP001";
+            this.label7.Text = "EMP Number";
             // 
             // frmAdmin
             // 
@@ -367,6 +359,10 @@
             this.Controls.Add(this.txtUserID);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.dataGridView);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.lblLoggedUserEMPNumber);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.lblLoggedUserName);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnUpdate);
@@ -390,12 +386,9 @@
             this.Controls.Add(this.txtEmail);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.lblWelcomeMessage);
-            this.Controls.Add(this.lblLoggedUserName);
-            this.Controls.Add(this.lblEMPMessage);
-            this.Controls.Add(this.lblLoggedUserEMPNumber);
             this.Name = "frmAdmin";
             this.Text = "frmAdmin";
+            this.Load += new System.EventHandler(this.frmAdmin_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -427,6 +420,10 @@
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Label lblLoggedUserName;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblLoggedUserEMPNumber;
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.TextBox txtUserID;
         private System.Windows.Forms.Label label7;

@@ -21,24 +21,25 @@ namespace WindowsFormsGUIApp
 
         private void frmAdmin_Load(object sender, EventArgs e)
         {
-            LoadData(); // Load all users into the grid when the form loads
-            // Set the logged-in user details
-            lblLoggedUserName.Text = Session.LoggedInUserName; // User's name
-            lblLoggedUserEMPNumber.Text = Session.LoggedInUserEMPNumber; // User's EMP number
+            LoadData();
+            lblLoggedUserName.Text = Session.LoggedInUserName;
+            lblLoggedUserEMPNumber.Text = Session.LoggedInUserEMPNumber;
         }
 
-        // Load all users into the grid view
         private void LoadData()
         {
             try
             {
                 string query = "SELECT UserID, Name, Email, EMPNumber, ContactNumber1, ContactNumber2, Address1, Address2, Role, CreatedBy, CreatedAt FROM Users";
                 DataTable dataTable = DatabaseConnection.ExecuteQuery(query);
-                dataGridView.DataSource = dataTable; // Assuming the grid view is named dataGridView
+                dataGridView.DataSource = dataTable;
+
+                // Optional customizations
+                dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; // Auto-resize columns
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading data: {ex.Message}");
+                MessageBox.Show($"Failed to load data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -152,11 +153,6 @@ namespace WindowsFormsGUIApp
             }
         }
 
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            ClearFields();
-        }
-
         private void ClearFields()
         {
             txtName.Text = "";
@@ -173,6 +169,32 @@ namespace WindowsFormsGUIApp
         private void btnExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Ensure the user clicks on a valid row (not the header or an empty row)
+            if (e.RowIndex >= 0 && e.RowIndex < dataGridView.Rows.Count)
+            {
+                // Get the selected row
+                DataGridViewRow selectedRow = dataGridView.Rows[e.RowIndex];
+
+                // Populate text boxes with values from the selected row
+                txtUserID.Text = selectedRow.Cells["UserID"].Value.ToString();
+                txtName.Text = selectedRow.Cells["Name"].Value.ToString();
+                txtEmail.Text = selectedRow.Cells["Email"].Value.ToString();
+                txtPassword.Text = ""; // Avoid displaying the password for security
+                txtContactNumber1.Text = selectedRow.Cells["ContactNumber1"].Value.ToString();
+                txtContactNumber2.Text = selectedRow.Cells["ContactNumber2"].Value?.ToString() ?? ""; // Handle NULL values
+                txtAddress1.Text = selectedRow.Cells["Address1"].Value.ToString();
+                txtAddress2.Text = selectedRow.Cells["Address2"].Value?.ToString() ?? ""; // Handle NULL values
+                cmbRole.SelectedItem = selectedRow.Cells["Role"].Value.ToString();
+            }
+        }
+
+        private void btnClear_Click_1(object sender, EventArgs e)
+        {
+            ClearFields();
         }
     }
 }
