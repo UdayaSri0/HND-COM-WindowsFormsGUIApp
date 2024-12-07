@@ -68,7 +68,7 @@ A C# Windows Forms application that manages users and administrators with role-b
    INSERT INTO Users (Name, Email, EMPNumber, Password, ContactNumber1, ContactNumber2, Address1, Address2, Role, CreatedBy)
    VALUES 
    ('UdayaSri', 'udayasri@gmail.com', 'EMP001', 'password', '0711234567', '0717654321', 'No. 15, Colombo Street', 'Apartment 5B', 'Admin', 'System'),
-   ('Imasha', 'imasha@gmail.com', 'EMP002', 'password', '0719876543', NULL, 'No. 22, Kandy Lane', NULL, 'User', 'System');
+   ('Sadun', 'sadun@gmail.com', 'EMP002', 'password', '0719876543', NULL, 'No. 22, Kandy Lane', NULL, 'User', 'System');
 
 
 Application Configuration
@@ -86,7 +86,7 @@ Login
 Use the following credentials for testing:
 
 Admin: udayasri@gmail.com | Password: password
-User: imasha@gmail.com | Password: password
+User: sadun@gmail.com | Password: password
 Admin Features
 Manage users: Add, update, delete, and search for user records.
 View logged-in user details.
