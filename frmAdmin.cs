@@ -196,5 +196,21 @@ namespace WindowsFormsGUIApp
         {
             ClearFields();
         }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            // Confirm logout
+            var result = MessageBox.Show("Are you sure you want to log out?", "Logout Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                // Redirect to the login form
+                frmLogin loginForm = new frmLogin();
+                loginForm.Show();
+
+                // Close the current admin form
+                this.Close();
+            }
+        }
     }
 }

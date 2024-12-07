@@ -58,6 +58,7 @@
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.txtUserID = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.btnLogout = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -350,12 +351,24 @@
             this.label7.TabIndex = 36;
             this.label7.Text = "EMP Number";
             // 
+            // btnLogout
+            // 
+            this.btnLogout.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogout.Location = new System.Drawing.Point(25, 118);
+            this.btnLogout.Name = "btnLogout";
+            this.btnLogout.Size = new System.Drawing.Size(90, 35);
+            this.btnLogout.TabIndex = 38;
+            this.btnLogout.Text = "Logout";
+            this.btnLogout.UseVisualStyleBackColor = true;
+            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
+            // 
             // frmAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(172)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(1389, 823);
+            this.Controls.Add(this.btnLogout);
             this.Controls.Add(this.txtUserID);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.dataGridView);
@@ -427,5 +440,6 @@
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.TextBox txtUserID;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btnLogout;
     }
 }
