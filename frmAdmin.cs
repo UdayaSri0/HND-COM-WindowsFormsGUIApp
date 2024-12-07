@@ -47,29 +47,67 @@ namespace WindowsFormsGUIApp
         {
             try
             {
+                // Validate required fields
+                if (string.IsNullOrWhiteSpace(txtName.Text) ||
+                    string.IsNullOrWhiteSpace(txtEmail.Text) ||
+                    string.IsNullOrWhiteSpace(txtPassword.Text) ||
+                    string.IsNullOrWhiteSpace(txtContactNumber1.Text) ||
+                    string.IsNullOrWhiteSpace(txtAddress1.Text) ||
+                    cmbRole.SelectedItem == null)
+                {
+                    MessageBox.Show("Please fill in all required fields.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; // Exit the method if validation fails
+                }
+
+                // Prepare the SQL INSERT query
                 string query = "INSERT INTO Users (Name, Email, Password, ContactNumber1, ContactNumber2, Address1, Address2, Role, CreatedBy) " +
                                "VALUES (@Name, @Email, @Password, @ContactNumber1, @ContactNumber2, @Address1, @Address2, @Role, @CreatedBy)";
 
+                // Create parameters for the query
                 SqlParameter[] parameters = {
-                    new SqlParameter("@Name", txtName.Text),
-                    new SqlParameter("@Email", txtEmail.Text),
-                    new SqlParameter("@Password", txtPassword.Text),
-                    new SqlParameter("@ContactNumber1", txtContactNumber1.Text),
-                    new SqlParameter("@ContactNumber2", string.IsNullOrEmpty(txtContactNumber2.Text) ? (object)DBNull.Value : txtContactNumber2.Text),
-                    new SqlParameter("@Address1", txtAddress1.Text),
-                    new SqlParameter("@Address2", string.IsNullOrEmpty(txtAddress2.Text) ? (object)DBNull.Value : txtAddress2.Text),
-                    new SqlParameter("@Role", cmbRole.SelectedItem.ToString()),
-                    new SqlParameter("@CreatedBy", Session.LoggedInUserName) // Assuming you store the logged-in user
-                };
+            new SqlParameter("@Name", txtName.Text.Trim()),
+            new SqlParameter("@Email", txtEmail.Text.Trim()),
+            new SqlParameter("@Password", txtPassword.Text.Trim()), // Store hashed password in real-world scenarios
+            new SqlParameter("@ContactNumber1", txtContactNumber1.Text.Trim()),
+            new SqlParameter("@ContactNumber2", string.IsNullOrWhiteSpace(txtContactNumber2.Text) ? (object)DBNull.Value : txtContactNumber2.Text.Trim()),
+            new SqlParameter("@Address1", txtAddress1.Text.Trim()),
+            new SqlParameter("@Address2", string.IsNullOrWhiteSpace(txtAddress2.Text) ? (object)DBNull.Value : txtAddress2.Text.Trim()),
+            new SqlParameter("@Role", cmbRole.SelectedItem.ToString()),
+            new SqlParameter("@CreatedBy", Session.LoggedInUserName) // Assuming Session class contains the logged-in user
+        };
 
+                // Execute the query
                 int rowsAffected = DatabaseConnection.ExecuteNonQuery(query, parameters);
-                MessageBox.Show($"{rowsAffected} user(s) added successfully.");
-                LoadData(); // Refresh the grid
-                ClearFields();
+
+                // Provide feedback to the user
+                if (rowsAffected > 0)
+                {
+                    MessageBox.Show("User added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Refresh the data grid and clear input fields
+                    LoadData();
+                    ClearFields();
+                }
+                else
+                {
+                    MessageBox.Show("No user was added. Please try again.", "Insertion Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                // Check for unique constraint violation (e.g., Email or EMPNumber already exists)
+                if (sqlEx.Number == 2627) // SQL Server error code for unique constraint violation
+                {
+                    MessageBox.Show("A user with the same email already exists. Please use a different email.", "Duplicate Entry", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    MessageBox.Show($"A database error occurred: {sqlEx.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error inserting user: {ex.Message}");
+                MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -78,29 +116,69 @@ namespace WindowsFormsGUIApp
         {
             try
             {
+                // Validate required fields
+                if (string.IsNullOrWhiteSpace(txtName.Text) ||
+                    string.IsNullOrWhiteSpace(txtEmail.Text) ||
+                    string.IsNullOrWhiteSpace(txtContactNumber1.Text) ||
+                    string.IsNullOrWhiteSpace(txtAddress1.Text) ||
+                    cmbRole.SelectedItem == null)
+                {
+                    MessageBox.Show("Please fill in all required fields.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; // Exit the method
+                }
+
+                // Prevent logged-in user from changing their own role
+                if (txtUserID.Text == Session.LoggedInUserEMPNumber && cmbRole.SelectedItem.ToString() != Session.LoggedInUserRole)
+                {
+                    MessageBox.Show("You cannot change your own role.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; // Exit the method
+                }
+
+                // SQL Query for updating user
                 string query = "UPDATE Users SET Name = @Name, Email = @Email, Password = @Password, ContactNumber1 = @ContactNumber1, " +
                                "ContactNumber2 = @ContactNumber2, Address1 = @Address1, Address2 = @Address2, Role = @Role WHERE UserID = @UserID";
 
+                // Parameters for the query
                 SqlParameter[] parameters = {
-                    new SqlParameter("@Name", txtName.Text),
-                    new SqlParameter("@Email", txtEmail.Text),
-                    new SqlParameter("@Password", txtPassword.Text),
-                    new SqlParameter("@ContactNumber1", txtContactNumber1.Text),
-                    new SqlParameter("@ContactNumber2", string.IsNullOrEmpty(txtContactNumber2.Text) ? (object)DBNull.Value : txtContactNumber2.Text),
-                    new SqlParameter("@Address1", txtAddress1.Text),
-                    new SqlParameter("@Address2", string.IsNullOrEmpty(txtAddress2.Text) ? (object)DBNull.Value : txtAddress2.Text),
-                    new SqlParameter("@Role", cmbRole.SelectedItem.ToString()),
-                    new SqlParameter("@UserID", int.Parse(txtUserID.Text)) // Assuming you have a hidden field or column to store UserID
-                };
+                new SqlParameter("@Name", txtName.Text.Trim()),
+                new SqlParameter("@Email", txtEmail.Text.Trim()),
+                new SqlParameter("@Password", txtPassword.Text.Trim()),
+                new SqlParameter("@ContactNumber1", txtContactNumber1.Text.Trim()),
+                new SqlParameter("@ContactNumber2", string.IsNullOrWhiteSpace(txtContactNumber2.Text) ? (object)DBNull.Value : txtContactNumber2.Text.Trim()),
+                new SqlParameter("@Address1", txtAddress1.Text.Trim()),
+                new SqlParameter("@Address2", string.IsNullOrWhiteSpace(txtAddress2.Text) ? (object)DBNull.Value : txtAddress2.Text.Trim()),
+                new SqlParameter("@Role", cmbRole.SelectedItem.ToString()),
+                new SqlParameter("@UserID", int.Parse(txtUserID.Text.Trim())) // Assuming UserID is stored as an integer
+    };
 
+                // Execute the query
                 int rowsAffected = DatabaseConnection.ExecuteNonQuery(query, parameters);
-                MessageBox.Show($"{rowsAffected} user(s) updated successfully.");
-                LoadData(); // Refresh the grid
+
+                // Provide feedback to the user
+                if (rowsAffected > 0)
+                {
+                    MessageBox.Show("User updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("No user was updated. Please check the UserID.", "Update Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+                // Refresh the grid and clear the form
+                LoadData();
                 ClearFields();
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Invalid UserID format. Please ensure UserID is a valid number.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (SqlException sqlEx)
+            {
+                MessageBox.Show($"A database error occurred: {sqlEx.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error updating user: {ex.Message}");
+                MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -108,17 +186,51 @@ namespace WindowsFormsGUIApp
         {
             try
             {
-                string query = "DELETE FROM Users WHERE UserID = @UserID";
-                SqlParameter[] parameters = { new SqlParameter("@UserID", int.Parse(txtUserID.Text)) };
+                // Get the UserID or EMPNumber of the account to be deleted
+                string selectedEMPNumber = txtUserID.Text.Trim(); // Or use EMPNumber if preferred
 
-                int rowsAffected = DatabaseConnection.ExecuteNonQuery(query, parameters);
-                MessageBox.Show($"{rowsAffected} user(s) deleted successfully.");
-                LoadData(); // Refresh the grid
-                ClearFields();
+                // Check if the logged-in user is trying to delete their own account
+                if (selectedEMPNumber == Session.LoggedInUserEMPNumber)
+                {
+                    MessageBox.Show("You cannot delete your own account while logged in.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; // Exit the method without performing t  he delete
+                }
+
+                // Confirm deletion
+                var result = MessageBox.Show("Are you sure you want to delete this account?", "Delete Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    // SQL query to delete the user
+                    string query = "DELETE FROM Users WHERE EMPNumber = @EMPNumber";
+
+                    // Parameterize the query to avoid SQL injection
+                    SqlParameter[] parameters = {
+                new SqlParameter("@EMPNumber", selectedEMPNumber)
+            };
+
+                    // Execute the query
+                    int rowsAffected = DatabaseConnection.ExecuteNonQuery(query, parameters);
+
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Account deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Refresh the DataGridView to reflect changes
+                        LoadData();
+
+                        // Clear input fields
+                        ClearFields();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Account deletion failed. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error deleting user: {ex.Message}");
+                MessageBox.Show($"An error occurred while deleting the account: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
