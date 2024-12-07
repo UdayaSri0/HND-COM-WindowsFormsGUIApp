@@ -29,9 +29,7 @@
         private void InitializeComponent()
         {
             this.btnLogout = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
             this.lblLoggedUserEMPNumber = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.lblLoggedUserName = new System.Windows.Forms.Label();
             this.btnAdminPage = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
@@ -48,40 +46,20 @@
             this.btnLogout.UseVisualStyleBackColor = true;
             this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Tai Le", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(20, 65);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(143, 27);
-            this.label5.TabIndex = 42;
-            this.label5.Text = "EMP Number";
-            // 
             // lblLoggedUserEMPNumber
             // 
             this.lblLoggedUserEMPNumber.AutoSize = true;
             this.lblLoggedUserEMPNumber.Font = new System.Drawing.Font("Microsoft Tai Le", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLoggedUserEMPNumber.Location = new System.Drawing.Point(172, 65);
+            this.lblLoggedUserEMPNumber.Location = new System.Drawing.Point(21, 64);
             this.lblLoggedUserEMPNumber.Name = "lblLoggedUserEMPNumber";
             this.lblLoggedUserEMPNumber.Size = new System.Drawing.Size(0, 27);
             this.lblLoggedUserEMPNumber.TabIndex = 33;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Tai Le", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(20, 21);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(103, 27);
-            this.label4.TabIndex = 40;
-            this.label4.Text = "Welcome";
             // 
             // lblLoggedUserName
             // 
             this.lblLoggedUserName.AutoSize = true;
             this.lblLoggedUserName.Font = new System.Drawing.Font("Microsoft Tai Le", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLoggedUserName.Location = new System.Drawing.Point(172, 21);
+            this.lblLoggedUserName.Location = new System.Drawing.Point(21, 20);
             this.lblLoggedUserName.Name = "lblLoggedUserName";
             this.lblLoggedUserName.Size = new System.Drawing.Size(0, 27);
             this.lblLoggedUserName.TabIndex = 39;
@@ -117,9 +95,7 @@
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnAdminPage);
             this.Controls.Add(this.btnLogout);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.lblLoggedUserEMPNumber);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.lblLoggedUserName);
             this.Name = "frmAdminHome";
             this.Text = "frmAdminHome";
@@ -131,9 +107,7 @@
         #endregion
 
         private System.Windows.Forms.Button btnLogout;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lblLoggedUserEMPNumber;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblLoggedUserName;
         private System.Windows.Forms.Button btnAdminPage;
         private System.Windows.Forms.Button btnExit;

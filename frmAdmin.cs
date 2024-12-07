@@ -23,8 +23,26 @@ namespace WindowsFormsGUIApp
         private void frmAdmin_Load(object sender, EventArgs e)
         {
             LoadData();
-            lblLoggedUserName.Text = Session.LoggedInUserName;
-            lblLoggedUserEMPNumber.Text = Session.LoggedInUserEMPNumber;
+            try
+            {
+                // Check if session data is available
+                if (!string.IsNullOrEmpty(Session.LoggedInUserName) && !string.IsNullOrEmpty(Session.LoggedInUserEMPNumber))
+                {
+                    lblLoggedUserName.Text = $"Welcome, {Session.LoggedInUserName}";
+                    lblLoggedUserEMPNumber.Text = $"EMP Number: {Session.LoggedInUserEMPNumber}";
+                }
+                else
+                {
+                    MessageBox.Show("No logged user data found. Please log in again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    frmLogin loginForm = new frmLogin();
+                    loginForm.Show();
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading user details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void LoadData()

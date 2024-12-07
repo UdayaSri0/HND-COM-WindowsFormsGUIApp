@@ -52,8 +52,6 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.lblLoggedUserName = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.lblLoggedUserEMPNumber = new System.Windows.Forms.Label();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.txtUserID = new System.Windows.Forms.TextBox();
@@ -292,36 +290,16 @@
             // 
             this.lblLoggedUserName.AutoSize = true;
             this.lblLoggedUserName.Font = new System.Drawing.Font("Microsoft Tai Le", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLoggedUserName.Location = new System.Drawing.Point(164, 19);
+            this.lblLoggedUserName.Location = new System.Drawing.Point(20, 14);
             this.lblLoggedUserName.Name = "lblLoggedUserName";
             this.lblLoggedUserName.Size = new System.Drawing.Size(0, 27);
             this.lblLoggedUserName.TabIndex = 31;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Tai Le", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(12, 19);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(103, 27);
-            this.label4.TabIndex = 32;
-            this.label4.Text = "Welcome";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Tai Le", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(12, 78);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(143, 27);
-            this.label5.TabIndex = 34;
-            this.label5.Text = "EMP Number";
             // 
             // lblLoggedUserEMPNumber
             // 
             this.lblLoggedUserEMPNumber.AutoSize = true;
             this.lblLoggedUserEMPNumber.Font = new System.Drawing.Font("Microsoft Tai Le", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLoggedUserEMPNumber.Location = new System.Drawing.Point(164, 78);
+            this.lblLoggedUserEMPNumber.Location = new System.Drawing.Point(20, 73);
             this.lblLoggedUserEMPNumber.Name = "lblLoggedUserEMPNumber";
             this.lblLoggedUserEMPNumber.Size = new System.Drawing.Size(0, 27);
             this.lblLoggedUserEMPNumber.TabIndex = 33;
@@ -383,9 +361,7 @@
             this.Controls.Add(this.txtUserID);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.dataGridView);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.lblLoggedUserEMPNumber);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.lblLoggedUserName);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.btnDelete);
@@ -445,8 +421,6 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Label lblLoggedUserName;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lblLoggedUserEMPNumber;
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.TextBox txtUserID;

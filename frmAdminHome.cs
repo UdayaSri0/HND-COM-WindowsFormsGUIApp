@@ -16,18 +16,36 @@ namespace WindowsFormsGUIApp
         public frmAdminHome()
         {
             InitializeComponent();
+            this.Load += frmAdminHome_Load;
         }
 
-        private void frmAdmin_Load(object sender, EventArgs e)
+        private void frmAdminHome_Load(object sender, EventArgs e)
         {
-            
-            lblLoggedUserName.Text = Session.LoggedInUserName;
-            lblLoggedUserEMPNumber.Text = Session.LoggedInUserEMPNumber;
+            try
+            {
+                // Check if session data is available
+                if (!string.IsNullOrEmpty(Session.LoggedInUserName) && !string.IsNullOrEmpty(Session.LoggedInUserEMPNumber))
+                {
+                    lblLoggedUserName.Text = $"Welcome, {Session.LoggedInUserName}";
+                    lblLoggedUserEMPNumber.Text = $"EMP Number: {Session.LoggedInUserEMPNumber}";
+                }
+                else
+                {
+                    MessageBox.Show("No logged user data found. Please log in again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    frmLogin loginForm = new frmLogin();
+                    loginForm.Show();
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading user details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
-
             // Confirm logout
             var result = MessageBox.Show("Are you sure you want to log out?", "Logout Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -44,11 +62,11 @@ namespace WindowsFormsGUIApp
 
         private void btnAdminPage_Click(object sender, EventArgs e)
         {
-            frmAdmin frmAdmin = new frmAdmin();
-            frmAdmin.Show();
+            // Navigate to the Admin page
+            frmAdmin adminForm = new frmAdmin();
+            adminForm.Show();
             this.Close();
         }
-
 
         private void CleanupResources()
         {
@@ -79,15 +97,12 @@ namespace WindowsFormsGUIApp
                         continue;
                     }
                 }
-
-                // Other cleanup tasks (if any)
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred during cleanup: {ex.Message}", "Cleanup Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         private void btnExit_Click(object sender, EventArgs e)
         {
