@@ -59,6 +59,7 @@
             this.txtUserID = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.btnLogout = new System.Windows.Forms.Button();
+            this.txtSearchValue = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,6 +72,7 @@
             this.btnExit.TabIndex = 15;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click_1);
             // 
             // btnClear
             // 
@@ -97,7 +99,7 @@
             // btnInsert
             // 
             this.btnInsert.Font = new System.Drawing.Font("Microsoft Tai Le", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnInsert.Location = new System.Drawing.Point(1016, 229);
+            this.btnInsert.Location = new System.Drawing.Point(1044, 373);
             this.btnInsert.Name = "btnInsert";
             this.btnInsert.Size = new System.Drawing.Size(120, 40);
             this.btnInsert.TabIndex = 12;
@@ -116,7 +118,7 @@
             // txtEmail
             // 
             this.txtEmail.Font = new System.Drawing.Font("Microsoft Tai Le", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmail.Location = new System.Drawing.Point(425, 178);
+            this.txtEmail.Location = new System.Drawing.Point(323, 177);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(469, 34);
             this.txtEmail.TabIndex = 10;
@@ -135,7 +137,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Tai Le", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(425, 148);
+            this.label1.Location = new System.Drawing.Point(323, 147);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(65, 27);
             this.label1.TabIndex = 8;
@@ -144,7 +146,7 @@
             // txtName
             // 
             this.txtName.Font = new System.Drawing.Font("Microsoft Tai Le", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtName.Location = new System.Drawing.Point(425, 98);
+            this.txtName.Location = new System.Drawing.Point(323, 97);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(469, 34);
             this.txtName.TabIndex = 17;
@@ -153,7 +155,7 @@
             // 
             this.lblName.AutoSize = true;
             this.lblName.Font = new System.Drawing.Font("Microsoft Tai Le", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblName.Location = new System.Drawing.Point(425, 62);
+            this.lblName.Location = new System.Drawing.Point(323, 61);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(70, 27);
             this.lblName.TabIndex = 16;
@@ -238,7 +240,7 @@
             this.cmbRole.Items.AddRange(new object[] {
             "Admin",
             "User"});
-            this.cmbRole.Location = new System.Drawing.Point(1127, 123);
+            this.cmbRole.Location = new System.Drawing.Point(1127, 97);
             this.cmbRole.Name = "cmbRole";
             this.cmbRole.Size = new System.Drawing.Size(138, 35);
             this.cmbRole.TabIndex = 26;
@@ -247,7 +249,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Tai Le", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(910, 126);
+            this.label3.Location = new System.Drawing.Point(910, 100);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(172, 27);
             this.label3.TabIndex = 27;
@@ -256,7 +258,7 @@
             // btnUpdate
             // 
             this.btnUpdate.Font = new System.Drawing.Font("Microsoft Tai Le", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdate.Location = new System.Drawing.Point(1193, 229);
+            this.btnUpdate.Location = new System.Drawing.Point(1207, 373);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(120, 40);
             this.btnUpdate.TabIndex = 28;
@@ -267,7 +269,7 @@
             // btnDelete
             // 
             this.btnDelete.Font = new System.Drawing.Font("Microsoft Tai Le", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.Location = new System.Drawing.Point(1016, 352);
+            this.btnDelete.Location = new System.Drawing.Point(1044, 485);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(120, 40);
             this.btnDelete.TabIndex = 29;
@@ -278,7 +280,7 @@
             // btnSearch
             // 
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Tai Le", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.Location = new System.Drawing.Point(1193, 352);
+            this.btnSearch.Location = new System.Drawing.Point(1145, 198);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(120, 40);
             this.btnSearch.TabIndex = 30;
@@ -336,7 +338,7 @@
             // txtUserID
             // 
             this.txtUserID.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUserID.Location = new System.Drawing.Point(789, 41);
+            this.txtUserID.Location = new System.Drawing.Point(693, 39);
             this.txtUserID.Name = "txtUserID";
             this.txtUserID.Size = new System.Drawing.Size(105, 24);
             this.txtUserID.TabIndex = 37;
@@ -345,7 +347,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(806, 16);
+            this.label7.Location = new System.Drawing.Point(710, 14);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(88, 16);
             this.label7.TabIndex = 36;
@@ -362,12 +364,21 @@
             this.btnLogout.UseVisualStyleBackColor = true;
             this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
             // 
+            // txtSearchValue
+            // 
+            this.txtSearchValue.Font = new System.Drawing.Font("Microsoft Tai Le", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearchValue.Location = new System.Drawing.Point(895, 202);
+            this.txtSearchValue.Name = "txtSearchValue";
+            this.txtSearchValue.Size = new System.Drawing.Size(215, 34);
+            this.txtSearchValue.TabIndex = 39;
+            // 
             // frmAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(172)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(1389, 823);
+            this.Controls.Add(this.txtSearchValue);
             this.Controls.Add(this.btnLogout);
             this.Controls.Add(this.txtUserID);
             this.Controls.Add(this.label7);
@@ -441,5 +452,6 @@
         private System.Windows.Forms.TextBox txtUserID;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnLogout;
+        private System.Windows.Forms.TextBox txtSearchValue;
     }
 }

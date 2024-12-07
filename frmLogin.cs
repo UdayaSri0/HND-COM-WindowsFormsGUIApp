@@ -48,8 +48,8 @@ namespace WindowsFormsGUIApp
                     // Navigate to the appropriate form
                     if (user["Role"].ToString() == "Admin")
                     {
-                        frmAdmin adminForm = new frmAdmin();
-                        adminForm.Show();
+                        frmAdminHome frmAdminHome = new frmAdminHome();
+                        frmAdminHome.Show();
                     }
                     else if (user["Role"].ToString() == "User")
                     {

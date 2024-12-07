@@ -14,15 +14,35 @@ namespace WindowsFormsGUIApp
         // Connection string for the database
         private static readonly string ConnectionString = @"Data Source=darkstar;Initial Catalog=WindowsFormsGUIApp;Integrated Security=True;Encrypt=False";
 
+        // List to track active connections
+        private static readonly List<SqlConnection> ActiveConnections = new List<SqlConnection>();
+
         /// <summary>
-        /// Provides a new SQL connection.
+        /// Provides a new SQL connection and tracks it in the active connections list.
         /// </summary>
         /// <returns>SqlConnection object</returns>
         public static SqlConnection GetConnection()
         {
-            return new SqlConnection(ConnectionString);
+            SqlConnection conn = new SqlConnection(ConnectionString);
+            ActiveConnections.Add(conn); // Track active connections
+            return conn;
         }
 
+        /// <summary>
+        /// Closes all active connections and clears the active connections list.
+        /// </summary>
+        public static void CloseAllConnections()
+        {
+            foreach (var connection in ActiveConnections)
+            {
+                if (connection != null && connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+                connection.Dispose(); // Ensure resources are released
+            }
+            ActiveConnections.Clear(); // Clear the list after closing
+        }
 
         /// <summary>
         /// Executes a non-query SQL command (INSERT, UPDATE, DELETE).
@@ -95,5 +115,6 @@ namespace WindowsFormsGUIApp
                 }
             } // Connection is automatically closed and disposed here
         }
+
     }
 }

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -238,30 +239,66 @@ namespace WindowsFormsGUIApp
         {
             try
             {
-                string query = "SELECT * FROM Users WHERE Email = @Email";
-                SqlParameter[] parameters = { new SqlParameter("@Email", txtEmail.Text) };
+                // Validate the search value
+                if (string.IsNullOrWhiteSpace(txtSearchValue.Text))
+                {
+                    MessageBox.Show("Please enter a search value.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
+                // Get the search value
+                string searchValue = txtSearchValue.Text.Trim();
+                string query = "";
+                SqlParameter[] parameters;
+
+                // Determine the search type based on input format
+                if (searchValue.Contains("@")) // Email format detection
+                {
+                    query = "SELECT * FROM Users WHERE Email = @SearchValue";
+                    parameters = new SqlParameter[] { new SqlParameter("@SearchValue", searchValue) };
+                }
+                else if (searchValue.StartsWith("EMP") && searchValue.Length > 3) // EMP Number format detection
+                {
+                    query = "SELECT * FROM Users WHERE EMPNumber = @SearchValue";
+                    parameters = new SqlParameter[] { new SqlParameter("@SearchValue", searchValue) };
+                }
+                else // Assume Name
+                {
+                    query = "SELECT * FROM Users WHERE Name LIKE @SearchValue";
+                    parameters = new SqlParameter[] { new SqlParameter("@SearchValue", $"%{searchValue}%") }; // Partial match
+                }
+
+                // Execute the query
                 DataTable dataTable = DatabaseConnection.ExecuteQuery(query, parameters);
+
                 if (dataTable.Rows.Count > 0)
                 {
+                    // Populate the fields with the first matching record
                     DataRow row = dataTable.Rows[0];
                     txtName.Text = row["Name"].ToString();
                     txtEmail.Text = row["Email"].ToString();
-                    txtPassword.Text = row["Password"].ToString();
+                    txtPassword.Text = ""; // Clear the password for security
                     txtContactNumber1.Text = row["ContactNumber1"].ToString();
-                    txtContactNumber2.Text = row["ContactNumber2"].ToString();
+                    txtContactNumber2.Text = row["ContactNumber2"] != DBNull.Value ? row["ContactNumber2"].ToString() : string.Empty;
                     txtAddress1.Text = row["Address1"].ToString();
-                    txtAddress2.Text = row["Address2"].ToString();
+                    txtAddress2.Text = row["Address2"] != DBNull.Value ? row["Address2"].ToString() : string.Empty;
                     cmbRole.SelectedItem = row["Role"].ToString();
                 }
                 else
                 {
-                    MessageBox.Show("No user found with the given email.");
+                    // Notify if no user was found
+                    MessageBox.Show("No matching records found.", "Search Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+            }
+            catch (SqlException sqlEx)
+            {
+                // Handle SQL-related errors
+                MessageBox.Show($"A database error occurred: {sqlEx.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error searching for user: {ex.Message}");
+                // Handle any unexpected errors
+                MessageBox.Show($"An error occurred while searching for the user: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -322,6 +359,75 @@ namespace WindowsFormsGUIApp
 
                 // Close the current admin form
                 this.Close();
+            }
+        }
+
+        private void CleanupResources()
+        {
+            try
+            {
+                // Close all active database connections
+                DatabaseConnection.CloseAllConnections();
+
+                // Delete temporary files safely
+                string tempPath = System.IO.Path.GetTempPath();
+                var tempFiles = System.IO.Directory.GetFiles(tempPath, "*.tmp");
+
+                foreach (var file in tempFiles)
+                {
+                    try
+                    {
+                        // Check if the file is locked
+                        using (var stream = new System.IO.FileStream(file, System.IO.FileMode.Open, System.IO.FileAccess.ReadWrite))
+                        {
+                            // File is not in use, delete it
+                            stream.Close();
+                            System.IO.File.Delete(file);
+                        }
+                    }
+                    catch (System.IO.IOException)
+                    {
+                        // File is in use, skip it
+                        continue;
+                    }
+                }
+
+                // Other cleanup tasks (if any)
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred during cleanup: {ex.Message}", "Cleanup Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+
+        private void btnExit_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                // Show a confirmation dialog
+                var result = MessageBox.Show(
+                    "Are you sure you want to exit the application?",
+                    "Exit Confirmation",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                // Exit the application if the user confirms
+                if (result == DialogResult.Yes)
+                {
+                    // Perform cleanup tasks (if any)
+                    CleanupResources();
+
+                    // Exit the application
+                    Application.Exit();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle unexpected errors during exit
+                MessageBox.Show($"An error occurred while exiting the application: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
