@@ -329,6 +329,8 @@ namespace WindowsFormsGUIApp
             txtContactNumber2.Text = "";
             txtAddress1.Text = "";
             txtAddress2.Text = "";
+            txtSearchValue.Text = "";
+            txtUserID.Text = "";
             cmbRole.SelectedIndex = -1;
         }
 
