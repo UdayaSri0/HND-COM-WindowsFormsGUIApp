@@ -428,7 +428,7 @@ namespace WindowsFormsGUIApp
             {
                 // Show a confirmation dialog
                 var result = MessageBox.Show(
-                    "Are you sure you want to exit the application?",
+                   "Are you sure you want to exit the application?",
                     "Exit Confirmation",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question
